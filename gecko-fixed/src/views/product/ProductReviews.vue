@@ -11,7 +11,7 @@ const currentUser = computed(function() {
   if (!token.value) return null
   const users = JSON.parse(localStorage.getItem('users') || '[]')
   for (let userIndex = 0; userIndex < users.length; userIndex++) {
-    if (users[userIndex].login === token.value) return users[i]
+    if (users[userIndex].login === token.value) return users[userIndex]
   }
   return null
 })
@@ -22,6 +22,13 @@ const reviewerLogin = computed(function() {
   if (token.value) return token.value
   if (isAdmin.value) return '__admin__'
   return null
+})
+
+const authorName = computed(function() {
+  if (isAdmin.value && token.value === 'admin') return 'Администратор'
+  if (currentUser.value && currentUser.value.name) return currentUser.value.name
+  if (reviewerLogin.value) return reviewerLogin.value
+  return 'Пользователь'
 })
 
 const visibleReviews = computed(function() {
@@ -35,10 +42,10 @@ const visibleReviews = computed(function() {
     return n
   }
   return result.slice().sort(function(reviewA, reviewB) {
-    if (reviewSort.value === 'new') return getNum(b.id) - getNum(a.id)
-    if (reviewSort.value === 'old') return getNum(a.id) - getNum(b.id)
-    if (reviewSort.value === 'rating_asc') return (a.rating || 0) - (b.rating || 0)
-    if (reviewSort.value === 'rating_desc') return (b.rating || 0) - (a.rating || 0)
+    if (reviewSort.value === 'new') return getNum(reviewB.id) - getNum(reviewA.id)
+    if (reviewSort.value === 'old') return getNum(reviewA.id) - getNum(reviewB.id)
+    if (reviewSort.value === 'rating_asc') return (reviewA.rating || 0) - (reviewB.rating || 0)
+    if (reviewSort.value === 'rating_desc') return (reviewB.rating || 0) - (reviewA.rating || 0)
     return 0
   })
 })
@@ -66,10 +73,9 @@ function submitReview() {
   if (!newRating.value) { newError.value = 'Поставьте оценку'; return }
   if (!newText.value.trim()) { newError.value = 'Напишите текст отзыва'; return }
   if (newText.value.trim().length < 10) { newError.value = 'Минимум 10 символов'; return }
-  const user = currentUser.value
   addReview(props.product.id, {
     id: 'r_' + Date.now(),
-    author: authorName,
+    author: authorName.value,
     login: reviewerLogin.value,
     text: newText.value.trim(),
     rating: newRating.value,
@@ -145,7 +151,7 @@ function onDelete(reviewId) {
     <template v-if="visibleReviews.length">
       <div v-for="r in visibleReviews" :key="r.id" class="review">
         <div class="review-top">
-          <span class="avatar">{{ r.author[0] }}</span>
+          <span class="avatar">{{ r.author ? r.author[0] : '?' }}</span>
           <div class="review-meta">
             <strong class="author">{{ r.author }}</strong>
             <div class="review-stars" v-if="r.rating">

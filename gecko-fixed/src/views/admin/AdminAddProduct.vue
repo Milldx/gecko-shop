@@ -152,8 +152,19 @@ function submit() {
           </div>
           <div class="color-add">
             <input type="text" v-model="newColorName" placeholder="Название цвета" class="sub-input" @input="newColorError = ''" />
-            <div class="img-picker">
-              <img v-for="img in defaultImages" :key="img" :src="img" :class="{ sel: newColorImage === img }" @click="selectColorImg(img)" />
+            <div v-if="newColorImage" class="selected-color-preview">
+              <img :src="newColorImage" class="selected-color-preview__img" />
+              <span class="selected-color-preview__label">Выбранное фото цвета</span>
+            </div>
+            <p class="picker-title">Фото из папки img</p>
+            <div class="asset-picker">
+              <img
+                v-for="img in defaultImages"
+                :key="img"
+                :src="img"
+                :class="['asset-picker__img', { 'asset-picker__img--active': newColorImage === img }]"
+                @click="selectColorImg(img)"
+              />
             </div>
             <p class="hint">Или URL фото:</p>
             <input type="text" v-model="newColorImage" placeholder="https://..." class="sub-input" @input="newColorError = ''" />
@@ -243,6 +254,14 @@ textarea { resize: vertical; min-height: 110px; }
 .btn-del-sm { background: transparent; border: 1px solid #e53935; color: #e53935; padding: 3px 8px; cursor: pointer; transition: all .2s; }
 .btn-del-sm:hover { background: #e53935; color: #fff; }
 .color-add { display: flex; flex-direction: column; gap: 8px; }
+.picker-title { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); margin-top: 2px; }
+.asset-picker { display: flex; flex-wrap: wrap; gap: 10px; }
+.asset-picker__img { width: 58px; height: 74px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: border-color .15s, transform .15s; background: var(--gray-bg); }
+.asset-picker__img:hover { transform: translateY(-1px); }
+.asset-picker__img--active { border-color: var(--black); }
+.selected-color-preview { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--border); background: #fafafa; }
+.selected-color-preview__img { width: 44px; height: 56px; object-fit: cover; flex-shrink: 0; }
+.selected-color-preview__label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); }
 .sub-input { border: 1px solid var(--border); padding: 9px 12px; font-family: 'Montserrat', sans-serif; font-size: 12px; box-sizing: border-box; width: 100%; }
 .sub-input:focus { outline: none; border-color: var(--black); }
 .btn-add-sm { align-self: flex-start; padding: 9px 20px; background: transparent; border: 1px solid var(--black); color: var(--black); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all .2s; }

@@ -160,6 +160,10 @@ function startEditColor(i) {
   editingColor.image = currentColors.value[i].image
 }
 
+function selectEditColorImg(url) {
+  editingColor.image = url
+}
+
 function saveEditColor() {
   if (!editingColor.name.trim() || !editingColor.image.trim()) return
   updateColor(productId, editingColorIndex.value, {
@@ -181,6 +185,11 @@ function addColorItem() {
   addColor(productId, { name: newColor.name.trim(), image: newColor.image.trim(), images: [] })
   newColor.name = ''
   newColor.image = ''
+}
+
+function selectNewColorImg(url) {
+  newColor.image = url
+  newColorError.value = ''
 }
 
 function getColorImages(ci) {
@@ -366,6 +375,20 @@ function save() {
             <div v-if="editingColorIndex === ci" class="color-edit-form">
               <input type="text" v-model="editingColor.name" placeholder="Название цвета" class="url-input" />
               <input type="text" v-model="editingColor.image" placeholder="Главное фото (URL)" class="url-input" />
+              <div v-if="editingColor.image" class="selected-color-preview">
+                <img :src="editingColor.image" class="selected-color-preview__img" />
+                <span class="selected-color-preview__label">Выбранное фото цвета</span>
+              </div>
+              <p class="picker-label">Фото из папки img:</p>
+              <div class="asset-picker">
+                <img
+                  v-for="img in defaultImages"
+                  :key="'edit-color-' + ci + '-' + img"
+                  :src="img"
+                  :class="['asset-picker__img', { 'asset-picker__img--active': editingColor.image === img }]"
+                  @click="selectEditColorImg(img)"
+                />
+              </div>
               <div class="color-edit-actions">
                 <button class="btn-sm btn-sm--save" @click="saveEditColor">Сохранить</button>
                 <button class="btn-sm btn-sm--cancel" @click="editingColorIndex = null">Отмена</button>
@@ -401,6 +424,20 @@ function save() {
             <div class="col-header" style="margin-top: 4px;">Добавить цвет</div>
             <input type="text" v-model="newColor.name" placeholder="Название (напр. Тёмно-синий)" class="url-input" @input="newColorError = ''" />
             <input type="text" v-model="newColor.image" placeholder="Главное фото цвета (URL)" class="url-input" @input="newColorError = ''" />
+            <div v-if="newColor.image" class="selected-color-preview">
+              <img :src="newColor.image" class="selected-color-preview__img" />
+              <span class="selected-color-preview__label">Выбранное фото цвета</span>
+            </div>
+            <p class="picker-label">Фото из папки img:</p>
+            <div class="asset-picker">
+              <img
+                v-for="img in defaultImages"
+                :key="'new-color-' + img"
+                :src="img"
+                :class="['asset-picker__img', { 'asset-picker__img--active': newColor.image === img }]"
+                @click="selectNewColorImg(img)"
+              />
+            </div>
             <p v-if="newColorError" class="field-err">{{ newColorError }}</p>
             <button class="btn-add-primary" @click="addColorItem">+ Добавить цвет</button>
           </div>
@@ -657,6 +694,23 @@ textarea { resize: vertical; min-height: 120px; }
   gap: 6px;
   margin-bottom: 4px;
 }
+.asset-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.asset-picker__img {
+  width: 58px;
+  height: 74px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color .15s, transform .15s;
+  background: var(--gray-bg);
+}
+.asset-picker__img:hover { transform: translateY(-1px); }
+.asset-picker__img--active { border-color: var(--black); }
 .picker-img {
   width: 58px;
   height: 74px;
@@ -733,6 +787,29 @@ textarea { resize: vertical; min-height: 120px; }
   gap: 6px;
   border-top: 1px solid var(--border);
   background: #fafafa;
+}
+.selected-color-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  margin-bottom: 2px;
+}
+.selected-color-preview__img {
+  width: 44px;
+  height: 56px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+.selected-color-preview__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
 }
 
 .color-edit-actions {
