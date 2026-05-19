@@ -159,4 +159,15 @@ function onAddToCart(product) {
 .wcard-cart--added { background: #2d7d2d; }
 .wcard-cart--added:hover { background: #2d7d2d; }
 .wcard-out-text { font-size: 11px; color: var(--gray-mid); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+@media (max-width: 600px) {
+  .wishlist-page { padding: 16px 12px 48px; }
+  .wishlist-title { font-size: 26px; margin-bottom: 16px; }
+  .wishlist-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  .card-info { padding: 8px 4px 12px; }
+  .card-name { font-size: 11px; }
+  .wishlist-btn { opacity: 1; }
+  .sizes-panel { transform: none; position: static; background: transparent; padding: 8px 0 0; border: none; }
+  .card:hover .card-img { object-fit: cover; width: 100%; height: 100%; transform: none; }
+  .empty-state { padding: 40px 16px; }
+}
 </style>

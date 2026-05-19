@@ -296,4 +296,17 @@
   display: inline-block;
 }
 .cta-btn:hover { background: #333; }
+@media (max-width: 600px) {
+  .loyalty-hero { padding: 40px 20px 32px; }
+  .loyalty-title { font-size: 36px; }
+  .loyalty-sub { font-size: 12px; }
+  .levels-section { padding: 40px 16px; }
+  .levels-grid { grid-template-columns: 1fr !important; gap: 12px; }
+  .level-card { padding: 20px 16px; }
+  .how-section { padding: 40px 16px; }
+  .steps-grid { grid-template-columns: 1fr !important; gap: 20px; }
+  .step { padding: 16px; }
+  .section-title { font-size: 22px; }
+  .faq-section { padding: 40px 16px; }
+}
 </style>

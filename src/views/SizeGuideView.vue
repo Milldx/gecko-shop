@@ -320,4 +320,13 @@ const menShoes = [
   line-height: 1.8;
   letter-spacing: 0.03em;
 }
+@media (max-width: 600px) {
+  .size-guide { padding: 0 12px 48px; overflow-x: hidden; }
+  .size-guide-hero { padding: 24px 0 20px; }
+  .size-guide-title { font-size: 26px; }
+  .sg-table-block { margin-bottom: 24px; }
+  .sg-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .sg-table { min-width: 460px; font-size: 11px; }
+  .sg-table th, .sg-table td { padding: 8px 8px; font-size: 10px; }
+}
 </style>

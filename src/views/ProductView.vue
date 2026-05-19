@@ -417,4 +417,29 @@ const sizeTab = ref('women')
 .sg-table td { padding: 12px; border-bottom: 1px solid #f0f0f0; }
 .sg-table tbody tr:hover { background: #fafafa; }
 .sg-table td:first-child { font-weight: 600; }
+@media (max-width: 600px) {
+  .product-page { padding: 0 0 0; }
+  .breadcrumb { padding: 10px 14px; font-size: 10px; }
+  .product-layout { grid-template-columns: 1fr; gap: 0; }
+  .product-gallery { flex-direction: column-reverse; }
+  .thumbs-col { flex-direction: row; width: 100%; overflow-x: auto; gap: 5px; padding: 8px 14px; }
+  .thumbs-list { flex-direction: row; gap: 5px; }
+  .thumb { width: 52px; height: 68px; flex-shrink: 0; }
+  .thumb-arrow { display: none; }
+  .main-img-wrap { aspect-ratio: 3 / 4; }
+  .product-details { padding: 18px 14px 40px; }
+  .product-name { font-size: 24px; }
+  .product-sku { font-size: 9px; }
+  .product-price-row { gap: 8px; margin-bottom: 16px; }
+  .size-grid { gap: 6px; }
+  .size-btn { height: 38px; min-width: 38px; font-size: 11px; }
+  .btn-cart { font-size: 10px; letter-spacing: 0.1em; padding: 14px 20px; }
+  .tabs { gap: 0; }
+  .tab { font-size: 10px; padding: 12px 10px; letter-spacing: 0.1em; }
+  .sg-modal { padding: 20px 14px; }
+  .sg-table { font-size: 11px; }
+  .sg-table th, .sg-table td { padding: 8px 5px; }
+  .stock-info { padding: 10px 14px; font-size: 10px; }
+  .color-section { margin-bottom: 16px; }
+}
 </style>

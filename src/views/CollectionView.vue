@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import colHeroUrl from '../assets/img/hero-banner.jpeg'
 import { useRouter } from 'vue-router'
 import { goods, toggleWishlist, isWishlisted } from '../composebles/useGoods.js'
 
@@ -67,7 +68,7 @@ const collectionGoods = computed(function() {
 <template>
   <div>
     <!-- Hero -->
-    <div class="col-hero">
+    <div class="col-hero" :style="{ backgroundImage: 'url(' + colHeroUrl + ')' }">
       <div class="col-hero-overlay"></div>
       <div class="col-hero-text">
         <span class="col-hero-label">Весна — Лето 2025</span>
@@ -158,7 +159,7 @@ const collectionGoods = computed(function() {
 .col-hero {
   position: relative;
   height: 480px;
-  background-image: url('/src/assets/img/hero-banner.jpeg');
+  /* background set via :style */
   background-size: cover;
   background-position: center 25%;
   display: flex;
@@ -214,7 +215,7 @@ const collectionGoods = computed(function() {
 .no-results { padding: 60px 0; text-align: center; color: var(--gray-mid); font-size: 14px; }
 
 /* Сетка */
-.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 32px; }
+.grid { display: grid; align-items: start; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 32px; }
 .card { cursor: pointer; }
 .card-media { position: relative; aspect-ratio: 3 / 4; background: var(--gray-bg); overflow: hidden; }
 .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.25,.46,.45,.94); }
@@ -242,4 +243,23 @@ const collectionGoods = computed(function() {
 .card-name { font-size: 12px; font-weight: 500; color: var(--black); letter-spacing: 0.03em; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .card-price { font-size: 12px; color: var(--gray-dark); }
 .card-out { font-size: 11px; color: #e53935; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+@media (max-width: 600px) {
+  .col-hero { height: 260px; }
+  .col-hero-title { font-size: 44px; }
+  .col-hero-text { padding: 0 20px 28px; }
+  .catalog { padding: 0 12px 48px; }
+  .catalog-toolbar { flex-direction: column; align-items: flex-start; padding: 20px 0 0; gap: 12px; }
+  .catalog-title { font-size: 26px; }
+  .toolbar-right { width: 100%; flex-direction: column; gap: 8px; }
+  .filter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { padding: 7px 14px; font-size: 10px; }
+  .sort-select { width: 100%; padding: 9px 12px; font-size: 11px; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  .card { width: 100%; }
+  .card-name { font-size: 11px; }
+  .card-info { padding: 8px 4px 12px; }
+  .wishlist-btn { opacity: 1; }
+  .sizes-panel { transform: none; position: static; background: transparent; padding: 8px 0 0; border: none; }
+  .card:hover .card-img { transform: none; }
+}
 </style>

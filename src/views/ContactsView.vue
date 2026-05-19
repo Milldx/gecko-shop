@@ -456,4 +456,15 @@ a.contact-card-value:hover { opacity: 0.6; }
   line-height: 1.7;
   max-width: 440px;
 }
+@media (max-width: 600px) {
+  .contacts-page { padding: 0 12px 48px; overflow-x: hidden; }
+  .contacts-layout { grid-template-columns: 1fr !important; gap: 24px; margin-bottom: 32px; padding-bottom: 32px; }
+  .contacts-left, .contacts-right { width: 100% !important; }
+  .contact-card { padding: 16px; }
+  .contact-card-label { font-size: 9px; }
+  .contact-card-value { font-size: 13px; }
+  .schedule-grid { grid-template-columns: 1fr !important; }
+  .contact-form input, .contact-form textarea { font-size: 13px; }
+  .contacts-title { font-size: 28px; }
+}
 </style>

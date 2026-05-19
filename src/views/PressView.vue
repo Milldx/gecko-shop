@@ -253,4 +253,15 @@
   width: fit-content;
 }
 .media-btn:hover { opacity: 0.5; }
+@media (max-width: 600px) {
+  .press-page { padding: 0 12px 48px; overflow-x: hidden; }
+  .press-section { padding: 24px 0; }
+  .section-title { font-size: 14px; }
+  .press-list { gap: 0; }
+  .press-item { flex-direction: column !important; gap: 10px; padding: 18px 0; }
+  .media-grid { grid-template-columns: 1fr 1fr !important; gap: 16px; }
+  .press-outlet { font-size: 14px; }
+  .press-date { font-size: 10px; }
+  .press-excerpt { font-size: 12px; }
+}
 </style>

@@ -49,4 +49,36 @@ const pendingCount = computed(function() {
 .s-back { margin-top: 16px; color: var(--gray-light); }
 .pending-dot { display: inline-flex; align-items: center; justify-content: center; background: #e89b00; color: #fff; font-size: 9px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 50%; padding: 0 3px; margin-left: 6px; }
 .admin-main { padding: 40px 28px; }
+
+@media (max-width: 600px) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+    min-height: unset;
+  }
+  .admin-sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 14px 16px;
+    position: static;
+  }
+  .admin-sidebar nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .s-link {
+    font-size: 10px;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .s-link.router-link-active {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+  }
+  .admin-main {
+    padding: 20px 14px;
+  }
+}
 </style>

@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { addProduct, goods } from '../../composebles/useGoods.js'
 
@@ -7,9 +7,29 @@ const ALL_SIZES = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL']
 const router = useRouter()
 
 const imgModules = import.meta.glob('/src/assets/img/*.{jpeg,jpg,png,webp}', { eager: true, query: '?url', import: 'default' })
-const defaultImages = Object.entries(imgModules)
-  .filter(function(entry) { return !entry[0].includes('hero-banner') })
-  .map(function(entry) { return entry[1] }).sort()
+const imgNewModules = import.meta.glob('/src/assets/img-new/*.{jpeg,jpg,png,webp}', { eager: true, query: '?url', import: 'default' })
+const imgSaleModules = import.meta.glob('/src/assets/img-sale/*.{jpeg,jpg,png,webp}', { eager: true, query: '?url', import: 'default' })
+const imgCollectionModules = import.meta.glob('/src/assets/img-collection/*.{jpeg,jpg,png,webp}', { eager: true, query: '?url', import: 'default' })
+
+function toImgList(modules) {
+  return Object.entries(modules)
+    .filter(function(e) { return !e[0].includes('hero-banner') })
+    .map(function(e) { return e[1] }).sort()
+}
+const folderMap = {
+  catalog: toImgList(imgModules),
+  new: toImgList(imgNewModules),
+  sale: toImgList(imgSaleModules),
+  collection: toImgList(imgCollectionModules),
+}
+const FOLDER_LABELS = {
+  catalog: 'Основной каталог (img)',
+  new: 'Новинки (img-new)',
+  sale: 'Распродажа (img-sale)',
+  collection: 'Коллекция (img-collection)',
+}
+const selectedFolder = ref('catalog')
+const currentImages = computed(function() { return folderMap[selectedFolder.value] || [] })
 
 const form = reactive({
   name: '', price: '', image: '', description: '', composition: '', care: '', gender: 'women',
@@ -69,7 +89,7 @@ function validate() {
 function submit() {
   validate()
   if (hasErrors.value) return
-  const image = form.image || defaultImages[0]
+  const image = form.image || currentImages.value[0]
   const sizes = [], stock = {}
   ALL_SIZES.forEach(function(size) {
     if (checkedSizes[size]) { sizes.push(size); stock[size] = Number(sizeStock[size]) || 0 }
@@ -187,8 +207,9 @@ function submit() {
             <div v-else class="main-preview-empty">Фото не выбрано</div>
           </div>
           <p class="picker-label">Выберите из библиотеки:</p>
+          <div class="folder-select-row"><select v-model="selectedFolder" class="folder-select"><option v-for="(label, key) in FOLDER_LABELS" :key="key" :value="key">{{ label }}</option></select></div>
           <div class="img-picker">
-            <img v-for="img in defaultImages" :key="img" :src="img" :class="['picker-img', { 'picker-img--active': form.image === img }]" @click="form.image = img" />
+            <img v-for="img in currentImages" :key="img" :src="img" :class="['picker-img', { 'picker-img--active': form.image === img }]" @click="form.image = img" />
           </div>
           <p class="picker-label" style="margin-top:14px;">Или вставьте URL:</p>
           <input type="text" v-model="form.image" placeholder="https://..." class="url-input" />
@@ -225,8 +246,9 @@ function submit() {
           </div>
 
           <p class="picker-label">Фото из папки IMG:</p>
+          <div class="folder-select-row"><select v-model="selectedFolder" class="folder-select"><option v-for="(label, key) in FOLDER_LABELS" :key="key" :value="key">{{ label }}</option></select></div>
           <div class="img-picker">
-            <img v-for="img in defaultImages" :key="'ci-' + img" :src="img" :class="['picker-img', { 'picker-img--active': newColorImage === img }]" @click="selectColorImg(img)" />
+            <img v-for="img in currentImages" :key="'ci-' + img" :src="img" :class="['picker-img', { 'picker-img--active': newColorImage === img }]" @click="selectColorImg(img)" />
           </div>
 
           <div v-if="newColorImage" class="color-preview-row">
@@ -254,7 +276,7 @@ function submit() {
             </div>
             <div class="img-picker" style="margin-top:8px;">
               <img
-                v-for="img in defaultImages"
+                v-for="img in currentImages"
                 :key="'gi-' + img"
                 :src="img"
                 :class="['picker-img', { 'picker-img--active': newColorGalleryInput === img }]"
@@ -344,4 +366,25 @@ textarea { resize: vertical; min-height: 100px; }
 .btn-gallery-add:hover { background: #333; }
 .color-gallery-preview { display: flex; flex-wrap: wrap; gap: 4px; padding: 6px 10px; background: #fafafa; border-left: 3px solid var(--border); }
 .gallery-preview-thumb { width: 38px; height: 50px; object-fit: cover; border: 1px solid var(--border); }
+.folder-select-row { margin-bottom: 8px; }
+.folder-select { width: 100%; border: 1px solid var(--border); padding: 8px 10px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; color: var(--black); background: var(--white); cursor: pointer; min-height: unset; }
+.folder-select:focus { outline: none; border-color: var(--black); }
+
+@media (max-width: 600px) {
+  .add-page { padding: 0 0 40px; }
+  .page-title { font-size: 26px; margin-bottom: 20px; }
+  .edit-layout { grid-template-columns: 1fr !important; border: none; }
+  .edit-col { border-right: none !important; border-bottom: 1px solid var(--border); }
+  .edit-col:last-child { border-bottom: none; }
+  .col-inner { padding: 20px 14px; }
+  .gender-tabs { width: 100%; }
+  .gender-tab { flex: 1; text-align: center; }
+  .radio-group { gap: 10px; }
+  .radio-label { font-size: 12px; min-height: 36px; align-items: center; }
+  .size-row { padding: 8px 10px; }
+  .btn-save, .btn-cancel { flex: 1; text-align: center; }
+  .form-actions { flex-direction: column; gap: 8px; }
+  .img-picker { gap: 4px; }
+  .picker-img { width: 46px; height: 60px; }
+}
 </style>

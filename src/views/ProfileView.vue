@@ -477,4 +477,18 @@ input:focus { outline: none; border-color: var(--black); }
 .btn-save:hover { background: #333; }
 .btn-cancel { flex: 1; padding: 13px; background: transparent; color: var(--black); border: 1px solid var(--border); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: border-color .2s; }
 .btn-cancel:hover { border-color: var(--black); }
+@media (max-width: 600px) {
+  .profile-page { padding: 16px 12px 48px; overflow-x: hidden; }
+  .profile-box { padding: 0; box-shadow: none; border: none; }
+  .profile-header { flex-direction: column; align-items: flex-start; gap: 10px; padding: 16px 0; }
+  .profile-title { font-size: 24px; }
+  .btn-edit { width: 100%; text-align: center; padding: 12px; }
+  .info-row { flex-direction: column; gap: 2px; padding: 12px 0; }
+  .info-label { font-size: 10px; }
+  .info-value { font-size: 13px; }
+  .loyalty-block { padding: 16px; }
+  .loyalty-top { flex-wrap: wrap; gap: 8px; }
+  .loyalty-progress-bar { height: 3px; }
+  .loyalty-hint { font-size: 11px; }
+}
 </style>

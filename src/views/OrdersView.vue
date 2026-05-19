@@ -152,4 +152,18 @@ function toggle(id) {
 .order-details { display: flex; flex-direction: column; gap: 10px; min-width: 200px; }
 .od-row { display: flex; gap: 12px; font-size: 12px; }
 .od-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); min-width: 80px; }
+@media (max-width: 600px) {
+  .orders-page { padding: 16px 12px 48px; overflow-x: hidden; }
+  .orders-title { font-size: 26px; margin-bottom: 16px; }
+  .order-card { margin-bottom: 12px; }
+  .order-head { flex-wrap: wrap; gap: 6px; padding: 14px 12px; }
+  .order-num { font-size: 12px; }
+  .order-total { font-size: 13px; }
+  .order-info { font-size: 11px; }
+  .order-body { padding: 12px; }
+  .order-items { flex-direction: column !important; gap: 12px; }
+  .order-item { gap: 10px; }
+  .order-details { flex-direction: column; gap: 8px; }
+  .order-status { font-size: 9px; padding: 3px 8px; }
+}
 </style>

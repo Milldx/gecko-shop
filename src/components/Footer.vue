@@ -96,4 +96,15 @@ const year = new Date().getFullYear()
   color: var(--gray-mid);
   letter-spacing: 0.04em;
 }
+@media (max-width: 600px) {
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 28px 20px; padding: 32px 16px 24px; }
+  .footer-brand { grid-column: 1 / -1; }
+  .footer-logo { font-size: 20px; }
+  .footer-tagline { font-size: 11px; }
+  .footer-col-title { font-size: 9px; margin-bottom: 10px; }
+  .footer-link { font-size: 12px; padding: 4px 0; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 6px; padding: 14px 16px; }
+  .footer-copy { font-size: 10px; }
+  .footer-legal { flex-wrap: wrap; gap: 8px; font-size: 10px; }
+}
 </style>

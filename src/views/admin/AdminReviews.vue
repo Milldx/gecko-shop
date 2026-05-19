@@ -186,4 +186,16 @@ function stars(rating) {
 .btn-approve:hover { background: #1e5e1e; }
 .btn-delete { padding: 6px 16px; background: transparent; color: #e53935; border: 1px solid #e53935; font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all .2s; }
 .btn-delete:hover { background: #e53935; color: #fff; }
+
+@media (max-width: 600px) {
+  .reviews-page { padding: 0 0 40px; }
+  .section-title { font-size: 20px; margin-bottom: 12px; }
+  .sort-select { width: 100%; font-size: 11px; padding: 9px 10px; }
+  .review-card { padding: 14px; }
+  .review-header { flex-wrap: wrap; gap: 6px; }
+  .review-product { font-size: 10px; }
+  .review-body { font-size: 12px; }
+  .review-actions { flex-direction: column; gap: 6px; }
+  .btn-approve, .btn-delete { width: 100%; text-align: center; padding: 10px; }
+}
 </style>

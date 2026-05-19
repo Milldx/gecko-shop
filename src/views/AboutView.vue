@@ -345,4 +345,14 @@
   font-style: normal;
   letter-spacing: 0.08em;
 }
+@media (max-width: 600px) {
+  .about-page { padding: 0 12px 48px; overflow-x: hidden; }
+  .about-hero { height: 240px !important; min-height: unset; background-position: center top !important; }
+  .story-grid { grid-template-columns: 1fr !important; gap: 24px; }
+  .story-stats { grid-template-columns: 1fr 1fr !important; width: 100%; gap: 12px; }
+  .values-grid { grid-template-columns: 1fr 1fr !important; gap: 12px; }
+  .value-item { padding: 16px !important; }
+  .section { padding: 28px 0; }
+  .section-title { font-size: 13px; letter-spacing: 0.2em; }
+}
 </style>

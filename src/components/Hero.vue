@@ -1,10 +1,11 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import heroBannerUrl from '../assets/img/hero-banner.jpeg'
 const router = useRouter()
 </script>
 
 <template>
-  <section class="hero">
+  <section class="hero" :style="{ backgroundImage: 'url(' + heroBannerUrl + ')' }">
     <div class="hero-inner">
       <p class="hero-sub">Весенняя коллекция</p>
       <h1 class="hero-title">Весна —<br><em>2026</em></h1>
@@ -20,7 +21,7 @@ const router = useRouter()
   min-height: 500px;
   display: flex;
   align-items: flex-end;
-  background-image: url('/src/assets/img/hero-banner.jpeg');
+  /* background set via :style binding for Vite asset processing */
   background-size: cover;
   background-position: center top;
   overflow: hidden;
@@ -78,5 +79,12 @@ const router = useRouter()
 .hero-btn:hover {
   background: #111;
   color: #fff;
+}
+@media (max-width: 600px) {
+  .hero { height: 68vh; min-height: 360px; }
+  .hero-inner { padding: 0 20px 32px; }
+  .hero-sub { font-size: 9px; letter-spacing: 0.18em; margin-bottom: 10px; }
+  .hero-title { font-size: clamp(36px, 11vw, 52px); margin-bottom: 22px; }
+  .hero-btn { padding: 12px 28px; font-size: 10px; letter-spacing: 0.14em; }
 }
 </style>

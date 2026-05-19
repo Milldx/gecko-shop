@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import newHeroUrl from '../assets/img-new/Textured cotton jumper.jpeg'
 import { useRouter } from 'vue-router'
 import { goods, toggleWishlist, isWishlisted } from '../composebles/useGoods.js'
 
@@ -68,7 +69,7 @@ const newGoods = computed(function() {
 </script>
 
 <template>
-  <div class="gender-hero gender-hero--new">
+  <div class="gender-hero gender-hero--new" :style="{ backgroundImage: 'url(' + newHeroUrl + ')' }">
     <div class="gender-hero-overlay"></div>
     <div class="gender-hero-text">
       <span class="gender-hero-label">Только появилось</span>
@@ -150,7 +151,7 @@ const newGoods = computed(function() {
   overflow: hidden;
 }
 .gender-hero--new {
-  background-image: url('/src/assets/img/Embroidered Underbust Corset Dress.jpeg');
+  /* background set via :style */
 }
 .gender-hero-overlay {
   position: absolute;
@@ -200,7 +201,7 @@ const newGoods = computed(function() {
 
 .no-results { padding: 60px 0; text-align: center; color: var(--gray-mid); font-size: 14px; }
 
-.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 32px; }
+.grid { display: grid; align-items: start; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 32px; }
 .card { cursor: pointer; }
 .card-media { position: relative; aspect-ratio: 3 / 4; background: var(--gray-bg); overflow: hidden; }
 .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.25,.46,.45,.94); }
@@ -238,4 +239,23 @@ const newGoods = computed(function() {
 .card-name { font-size: 12px; font-weight: 500; color: var(--black); letter-spacing: 0.03em; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .card-price { font-size: 12px; color: var(--gray-dark); }
 .card-out { font-size: 11px; color: #e53935; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+@media (max-width: 600px) {
+  .catalog { padding: 0 12px 48px; }
+  .catalog-toolbar { flex-direction: column; align-items: flex-start; padding: 20px 0 0; gap: 12px; }
+  .catalog-title { font-size: 26px; }
+  .toolbar-right { width: 100%; flex-direction: column; gap: 8px; }
+  .filter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { padding: 7px 14px; font-size: 10px; }
+  .sort-select { width: 100%; padding: 9px 12px; font-size: 11px; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  .card { width: 100%; }
+  .card-name { font-size: 11px; }
+  .card-info { padding: 8px 4px 12px; }
+  .wishlist-btn { opacity: 1; }
+  .sizes-panel { transform: none; position: static; background: transparent; padding: 8px 0 0; border: none; }
+  .card:hover .card-img { transform: none; }
+  .gender-hero { height: 240px; min-height: unset; }
+  .gender-hero-title { font-size: 38px; }
+  .gender-hero-text { padding: 0 20px 28px; }
+}
 </style>

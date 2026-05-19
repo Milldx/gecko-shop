@@ -254,4 +254,19 @@ function cancelDelete() {
 .modal-btn--danger:hover { background: #c62828; }
 .modal-btn--ghost { background: transparent; color: var(--gray-mid); border: 1px solid var(--border); }
 .modal-btn--ghost:hover { color: var(--black); border-color: var(--black); }
+
+@media (max-width: 600px) {
+  .promos-page { padding: 0 0 40px; }
+  .page-title { font-size: 20px; margin-bottom: 16px; }
+  .promo-form-block { padding: 16px; }
+  .promo-form-row { flex-direction: column; gap: 10px; }
+  .promo-field--short { width: 100%; }
+  .promo-input-field { width: 100% !important; }
+  .promo-add-btn { width: 100%; height: 44px; }
+  .promos-table { font-size: 11px; }
+  .promos-table th { padding: 8px 8px; font-size: 9px; }
+  .promos-table td { padding: 10px 8px; }
+  .td-actions { flex-direction: column; gap: 5px; }
+  .action-btn { width: 100%; text-align: center; padding: 8px; }
+}
 </style>

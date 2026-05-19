@@ -14,4 +14,7 @@ const router = useRouter()
 .nf-code { font-family: 'Cormorant Garamond', serif; font-size: 120px; font-weight: 300; line-height: 1; color: var(--border); }
 .nf-text { font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray-mid); }
 button { padding: 13px 40px; background: var(--black); color: var(--white); border: none; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; }
+@media (max-width: 600px) {
+  .not-found { padding: 60px 20px; }
+}
 </style>

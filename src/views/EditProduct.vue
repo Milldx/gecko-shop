@@ -23,10 +23,32 @@ const router = useRouter()
 const ALL_SIZES = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL']
 
 const imgModules = import.meta.glob('/src/assets/img/*.{jpeg,jpg,png,webp}', { eager: true, query: '?url', import: 'default' })
-const defaultImages = Object.entries(imgModules)
-  .filter(function(entry) { return !entry[0].includes('hero-banner') })
-  .map(function(entry) { return entry[1] })
-  .sort()
+const imgNewModules = import.meta.glob('/src/assets/img-new/*.{jpeg,jpg,png,webp}', { eager: true, query: '?url', import: 'default' })
+const imgSaleModules = import.meta.glob('/src/assets/img-sale/*.{jpeg,jpg,png,webp}', { eager: true, query: '?url', import: 'default' })
+const imgCollectionModules = import.meta.glob('/src/assets/img-collection/*.{jpeg,jpg,png,webp}', { eager: true, query: '?url', import: 'default' })
+
+function toImgList(modules) {
+  return Object.entries(modules)
+    .filter(function(e) { return !e[0].includes('hero-banner') })
+    .map(function(e) { return e[1] }).sort()
+}
+
+const folderMap = {
+  catalog: toImgList(imgModules),
+  new: toImgList(imgNewModules),
+  sale: toImgList(imgSaleModules),
+  collection: toImgList(imgCollectionModules),
+}
+
+const FOLDER_LABELS = {
+  catalog: 'Основной каталог (img)',
+  new: 'Новинки (img-new)',
+  sale: 'Распродажа (img-sale)',
+  collection: 'Коллекция (img-collection)',
+}
+
+const selectedFolder = ref('catalog')
+const folderImages = computed(function() { return folderMap[selectedFolder.value] || [] })
 
 const productId = route.params.id
 const product = getProductById(productId)
@@ -378,9 +400,14 @@ function save() {
           </div>
 
           <p class="picker-label">Выберите из библиотеки:</p>
+          <div class="folder-select-row">
+            <select v-model="selectedFolder" class="folder-select">
+              <option v-for="(label, key) in FOLDER_LABELS" :key="key" :value="key">{{ label }}</option>
+            </select>
+          </div>
           <div class="img-picker">
             <img
-              v-for="img in defaultImages"
+              v-for="img in folderImages"
               :key="img"
               :src="img"
               :class="['picker-img', { 'picker-img--active': form.image === img }]"
@@ -426,9 +453,10 @@ function save() {
                 <span class="selected-color-preview__label">Выбранное фото цвета</span>
               </div>
               <p class="picker-label">Фото из папки img:</p>
+              <div class="folder-select-row"><select v-model="selectedFolder" class="folder-select"><option v-for="(label, key) in FOLDER_LABELS" :key="key" :value="key">{{ label }}</option></select></div>
               <div class="asset-picker">
                 <img
-                  v-for="img in defaultImages"
+                  v-for="img in folderImages"
                   :key="'edit-color-' + ci + '-' + img"
                   :src="img"
                   :class="['asset-picker__img', { 'asset-picker__img--active': editingColor.image === img }]"
@@ -475,9 +503,10 @@ function save() {
               <span class="selected-color-preview__label">Выбранное фото цвета</span>
             </div>
             <p class="picker-label">Фото из папки img:</p>
+            <div class="folder-select-row"><select v-model="selectedFolder" class="folder-select"><option v-for="(label, key) in FOLDER_LABELS" :key="key" :value="key">{{ label }}</option></select></div>
             <div class="asset-picker">
               <img
-                v-for="img in defaultImages"
+                v-for="img in folderImages"
                 :key="'new-color-' + img"
                 :src="img"
                 :class="['asset-picker__img', { 'asset-picker__img--active': newColor.image === img }]"
@@ -729,6 +758,9 @@ textarea { resize: vertical; min-height: 120px; }
   font-style: italic;
 }
 
+.folder-select-row { margin-bottom: 8px; }
+.folder-select { width: 100%; border: 1px solid var(--border); padding: 8px 10px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; color: var(--black); background: var(--white); cursor: pointer; min-height: unset; }
+.folder-select:focus { outline: none; border-color: var(--black); }
 .picker-label {
   font-size: 10px;
   font-weight: 700;
@@ -1078,4 +1110,20 @@ textarea { resize: vertical; min-height: 120px; }
   transition: border-color .2s;
 }
 .confirm-btn-no:hover { border-color: var(--black); }
+
+@media (max-width: 600px) {
+  .edit-page { padding: 0 12px 40px; }
+  .edit-page-title { font-size: 26px; margin-bottom: 20px; }
+  .edit-layout { grid-template-columns: 1fr !important; border: 1px solid var(--border); }
+  .edit-col { border-right: none !important; border-bottom: 1px solid var(--border); }
+  .edit-col:last-child { border-bottom: none; }
+  .col-inner { padding: 20px 14px; }
+  .gender-tabs { width: 100%; }
+  .gender-tab { flex: 1; text-align: center; }
+  .radio-group { gap: 10px; }
+  .size-row { padding: 8px 10px; }
+  .img-picker, .asset-picker { gap: 4px; }
+  .picker-img, .asset-picker__img { width: 46px; height: 60px; }
+  .btn-save { width: 100%; text-align: center; margin-top: 8px; }
+}
 </style>

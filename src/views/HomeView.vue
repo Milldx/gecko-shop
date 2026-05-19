@@ -3,6 +3,8 @@ import { ref, computed, reactive, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Hero from '../components/Hero.vue'
 import { goods, toggleWishlist, isWishlisted } from '../composebles/useGoods.js'
+import splitHerUrl from '../assets/img/dress2.jpeg'
+import splitHimUrl from '../assets/img/jacket.jpeg'
 
 const router = useRouter()
 const route = useRoute()
@@ -202,7 +204,7 @@ const filteredGoods = computed(function() {
 
   <!-- Раздел: для неё / для него -->
   <section class="split-banner">
-    <div class="split-item split-item--her" @click="router.push({ name: 'women' })">
+    <div class="split-item split-item--her" :style="{ backgroundImage: 'url(' + splitHerUrl + ')' }" @click="router.push({ name: 'women' })">
       <div class="split-overlay"></div>
       <div class="split-text">
         <span class="split-label">Коллекция</span>
@@ -210,7 +212,7 @@ const filteredGoods = computed(function() {
         <span class="split-link">Смотреть</span>
       </div>
     </div>
-    <div class="split-item split-item--him" @click="router.push({ name: 'men' })">
+    <div class="split-item split-item--him" :style="{ backgroundImage: 'url(' + splitHimUrl + ')' }" @click="router.push({ name: 'men' })">
       <div class="split-overlay"></div>
       <div class="split-text">
         <span class="split-label">Коллекция</span>
@@ -419,13 +421,13 @@ const filteredGoods = computed(function() {
 }
 
 .split-item--her {
-  background-image: url('/src/assets/img/dress2.jpeg');
+  /* background set via :style */
   background-size: cover;
   background-position: center top;
 }
 
 .split-item--him {
-  background-image: url('/src/assets/img/jacket.jpeg');
+  /* background set via :style */
   background-size: cover;
   background-position: center top;
 }
@@ -561,6 +563,7 @@ const filteredGoods = computed(function() {
 
 .grid {
   display: grid;
+  align-items: start;
   grid-template-columns: repeat(4, 1fr);
   gap: 2px;
   margin-top: 32px;
@@ -706,4 +709,34 @@ const filteredGoods = computed(function() {
 
 .bv-text { font-size: 12px; color: var(--gray-mid); line-height: 1.7; }
 
+@media (max-width: 600px) {
+  .manifesto { padding: 36px 16px 28px; }
+  .manifesto-line { font-size: 15px; }
+  .split-banner { grid-template-columns: 1fr; }
+  .split-item { height: 260px; }
+  .split-title { font-size: 28px; }
+  .split-text { padding: 20px 16px; }
+  .catalog { padding: 20px 12px 0; }
+  .catalog-toolbar { padding: 0; gap: 10px; flex-direction: column; align-items: flex-start; }
+  .toolbar-left h2 { font-size: 26px; }
+  .toolbar-right { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; width: 100%; }
+  .sort-row { display: flex; gap: 8px; width: 100%; }
+  select { width: 100%; font-size: 11px; }
+  .btn-filter { width: 100%; justify-content: center; padding: 10px; font-size: 10px; }
+  .filters-panel { margin: 12px 0 0; padding: 16px; gap: 20px; }
+  .filter-group-title { font-size: 10px; }
+  .filter-size { height: 34px; min-width: 34px; font-size: 10px; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  .card { width: 100%; }
+  .card-name { font-size: 11px; }
+  .card-info { padding: 8px 4px 12px; }
+  .brand-values { grid-template-columns: 1fr 1fr; }
+  .brand-value { padding: 24px 12px; border-right: none; border-bottom: 1px solid var(--border); }
+  .brand-value:nth-child(odd) { border-right: 1px solid var(--border); }
+  .brand-value:last-child { border-bottom: none; }
+  .brand-value-title { font-size: 20px; }
+  .wishlist-btn { opacity: 1; }
+  .sizes-panel { transform: none; position: static; background: transparent; padding: 8px 0 0; border: none; }
+  .card:hover .card-img { transform: none; }
+}
 </style>

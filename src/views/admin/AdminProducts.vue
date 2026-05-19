@@ -70,6 +70,7 @@ function confirmDelete() {
         </select>
       </div>
     </div>
+    <div class="table-wrap">
     <table class="table">
       <thead>
         <tr>
@@ -119,6 +120,7 @@ function confirmDelete() {
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </template>
 
@@ -169,4 +171,15 @@ function confirmDelete() {
 .stock-size { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: var(--gray-mid); min-width: 28px; }
 .stock-qty { font-size: 12px; color: #2d7d2d; }
 .stock-out { color: #e53935; }
+@media (max-width: 600px) {
+  .top-bar { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 16px; }
+  .top-controls { width: 100%; flex-direction: column; gap: 8px; }
+  .search-input { min-width: unset; width: 100%; }
+  .sort-select { width: 100%; }
+  .btn-add { width: 100%; text-align: center; padding: 10px; }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .table { min-width: 640px; font-size: 11px; }
+  .thumb { width: 36px; height: 46px; }
+  .section-title { font-size: 22px; }
+}
 </style>

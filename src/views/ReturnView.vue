@@ -389,4 +389,15 @@
   color: var(--gray-mid);
   line-height: 1.8;
 }
+@media (max-width: 600px) {
+  .return-page { padding: 0 12px 48px; overflow-x: hidden; }
+  .steps-list { flex-direction: column !important; gap: 0; }
+  .step-row { flex-direction: column !important; gap: 12px; padding: 16px 0; }
+  .conditions-grid { grid-template-columns: 1fr !important; gap: 12px; }
+  .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 12px; }
+  .defect-block { grid-template-columns: 1fr !important; gap: 16px; }
+  .defect-btn { display: block; width: 100%; text-align: center; padding: 14px; }
+  .section { padding: 24px 0; }
+  .section-title { font-size: 13px; }
+}
 </style>

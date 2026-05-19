@@ -188,7 +188,7 @@ const maxDiscount = computed(function() {
 
 .no-results { padding: 60px 0; text-align: center; color: var(--gray-mid); font-size: 14px; }
 
-.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 32px; }
+.grid { display: grid; align-items: start; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 32px; }
 .card { cursor: pointer; }
 .card-media { position: relative; aspect-ratio: 3 / 4; background: var(--gray-bg); overflow: hidden; }
 .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.25,.46,.45,.94); }
@@ -227,4 +227,24 @@ const maxDiscount = computed(function() {
 .card-price-old { font-size: 11px; color: var(--gray-mid); text-decoration: line-through; }
 .card-price-sale { font-size: 13px; font-weight: 600; color: #c0392b; }
 .card-out { font-size: 11px; color: #e53935; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+@media (max-width: 600px) {
+  .catalog { padding: 0 12px 48px; }
+  .catalog-toolbar { flex-direction: column; align-items: flex-start; padding: 20px 0 0; gap: 12px; }
+  .toolbar-left { gap: 8px; }
+  .catalog-title { font-size: 26px; }
+  .toolbar-right { width: 100%; flex-direction: column; gap: 8px; }
+  .filter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { padding: 7px 14px; font-size: 10px; }
+  .sort-select { width: 100%; padding: 9px 12px; font-size: 11px; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  .card { width: 100%; }
+  .card-info { padding: 8px 4px 12px; }
+  .card-name { font-size: 11px; }
+  .wishlist-btn { opacity: 1; }
+  .sizes-panel { transform: none; position: static; background: transparent; padding: 8px 0 0; border: none; }
+  .card:hover .card-img { transform: none; }
+  .discount-badge { font-size: 10px; padding: 3px 6px; }
+  .card-price-old { font-size: 10px; }
+  .card-price-sale { font-size: 12px; }
+}
 </style>

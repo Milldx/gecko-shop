@@ -120,35 +120,46 @@ watch(() => router.currentRoute.value.fullPath, function() { mobileOpen.value = 
   <!-- Мобильное меню (drawer) -->
   <Transition name="drawer">
     <div v-if="mobileOpen" class="mobile-drawer">
-      <nav class="mobile-nav">
-        <RouterLink :to="{ name: 'new-arrivals' }" class="mobile-link" @click="closeMobile">Новинки</RouterLink>
-        <RouterLink :to="{ name: 'women' }" class="mobile-link" @click="closeMobile">Женщинам</RouterLink>
-        <RouterLink :to="{ name: 'men' }" class="mobile-link" @click="closeMobile">Мужчинам</RouterLink>
-        <RouterLink :to="{ name: 'sale' }" class="mobile-link mobile-link--sale" @click="closeMobile">Sale</RouterLink>
-        <RouterLink :to="{ name: 'collection' }" class="mobile-link" @click="closeMobile">Коллекция</RouterLink>
-      </nav>
-      <div class="mobile-divider"></div>
-      <nav class="mobile-nav mobile-nav--secondary">
-        <RouterLink :to="token ? { name: 'profile' } : { name: 'login' }" class="mobile-link-sm" @click="closeMobile">
-          {{ token ? 'Личный кабинет' : 'Войти' }}
-        </RouterLink>
-        <RouterLink :to="{ name: 'wishlist' }" class="mobile-link-sm" @click="closeMobile">
-          Избранное<span v-if="wishlistCount > 0" class="mobile-badge">{{ wishlistCount }}</span>
-        </RouterLink>
-        <RouterLink v-if="isAdmin" :to="{ name: 'admin-products' }" class="mobile-link-sm" @click="closeMobile">Панель управления</RouterLink>
-      </nav>
-      <div class="mobile-divider"></div>
-      <div class="mobile-search">
-        <input
-          v-model="searchQuery"
-          type="text"
-          placeholder="Поиск по названию или артикулу"
-          class="mobile-search-input"
-          @keyup.enter="submitSearch"
-        />
-        <button class="mobile-search-btn" @click="submitSearch">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <!-- Шапка drawer: логотип + крестик -->
+      <div class="drawer-header">
+        <RouterLink :to="{ name: 'home' }" class="drawer-logo" @click="closeMobile">GECKO</RouterLink>
+        <button class="drawer-close" @click="closeMobile" aria-label="Закрыть меню">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
         </button>
+      </div>
+      <div class="drawer-body">
+        <nav class="mobile-nav">
+          <RouterLink :to="{ name: 'new-arrivals' }" class="mobile-link" @click="closeMobile">Новинки</RouterLink>
+          <RouterLink :to="{ name: 'women' }" class="mobile-link" @click="closeMobile">Женщинам</RouterLink>
+          <RouterLink :to="{ name: 'men' }" class="mobile-link" @click="closeMobile">Мужчинам</RouterLink>
+          <RouterLink :to="{ name: 'sale' }" class="mobile-link mobile-link--sale" @click="closeMobile">Sale</RouterLink>
+          <RouterLink :to="{ name: 'collection' }" class="mobile-link" @click="closeMobile">Коллекция</RouterLink>
+        </nav>
+        <div class="mobile-divider"></div>
+        <nav class="mobile-nav mobile-nav--secondary">
+          <RouterLink :to="token ? { name: 'profile' } : { name: 'login' }" class="mobile-link-sm" @click="closeMobile">
+            {{ token ? 'Личный кабинет' : 'Войти' }}
+          </RouterLink>
+          <RouterLink :to="{ name: 'wishlist' }" class="mobile-link-sm" @click="closeMobile">
+            Избранное<span v-if="wishlistCount > 0" class="mobile-badge">{{ wishlistCount }}</span>
+          </RouterLink>
+          <RouterLink v-if="isAdmin" :to="{ name: 'admin-products' }" class="mobile-link-sm" @click="closeMobile">Панель управления</RouterLink>
+        </nav>
+        <div class="mobile-divider"></div>
+        <div class="mobile-search">
+          <input
+            v-model="searchQuery"
+            type="text"
+            placeholder="Поиск по названию или артикулу"
+            class="mobile-search-input"
+            @keyup.enter="submitSearch"
+          />
+          <button class="mobile-search-btn" @click="submitSearch">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </div>
       </div>
     </div>
   </Transition>
@@ -211,13 +222,31 @@ watch(() => router.currentRoute.value.fullPath, function() { mobileOpen.value = 
 .mobile-drawer {
   position: fixed; top: 0; right: 0;
   width: min(340px, 100vw);
+  max-width: 100vw;
   height: 100vh;
   background: var(--white);
   z-index: 400;
-  padding: 80px 28px 40px;
   overflow-y: auto;
   box-shadow: -4px 0 32px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
 }
+.drawer-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 64px;
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.drawer-logo {
+  font-family: 'Cormorant Garamond', serif; font-size: 22px;
+  font-weight: 500; letter-spacing: 0.32em; color: var(--black); text-transform: uppercase;
+}
+.drawer-close {
+  background: none; border: none; color: var(--black); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; padding: 6px;
+  min-height: unset; transition: opacity .2s;
+}
+.drawer-close:hover { opacity: 0.5; }
+.drawer-body { padding: 24px 24px 40px; flex: 1; overflow-y: auto; }
 .mobile-overlay {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.4);
@@ -261,9 +290,17 @@ watch(() => router.currentRoute.value.fullPath, function() { mobileOpen.value = 
 /* ── Responsive ── */
 @media (max-width: 600px) {
   .header { padding: 0 16px; }
+  .mobile-actions {
+    display: flex;
+    grid-column: 3;
+    justify-self: end;
+  }
   .nav--left, .nav--right { display: none; }
-  .mobile-actions { display: flex; }
+  .logo { font-size: 22px; letter-spacing: 0.26em; }
   .promo-bar { font-size: 9px; padding: 7px 10px; letter-spacing: 0.05em; }
-  .logo { font-size: 24px; letter-spacing: 0.28em; }
+  /* Drawer на 100% ширину экрана */
+  .mobile-drawer { width: 100vw; right: 0; box-shadow: none; }
+  /* Overlay оставляем — закрывает страницу за drawer */
+  .mobile-overlay { display: block; }
 }
 </style>

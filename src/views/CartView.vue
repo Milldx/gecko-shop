@@ -767,4 +767,29 @@ function formatExpiry(event) {
 .success-icon { width: 64px; height: 64px; border: 2px solid var(--black); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; }
 .success-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; }
 .success-sub { font-size: 13px; color: var(--gray-mid); max-width: 400px; line-height: 1.7; }
+@media (max-width: 600px) {
+  .cart-page { padding: 12px 12px 40px; overflow-x: hidden; }
+  .cart-layout { grid-template-columns: 1fr; gap: 0; }
+  .cart-items { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+  .cart-summary { position: static; padding: 20px 0 0; }
+  .summary-title { font-size: 18px; }
+  .cart-item { gap: 12px; }
+  .cart-item img { width: 80px; height: 100px; flex-shrink: 0; }
+  .item-name { font-size: 12px; }
+  .promo-row { flex-direction: row; }
+  .promo-input { font-size: 11px; }
+  .loyalty-progress-block { padding: 8px 0 12px; }
+  .checkout-layout { grid-template-columns: 1fr; gap: 0; }
+  .checkout-form { padding: 16px 0; border-right: none; }
+  .checkout-summary { position: static; padding: 16px 0 0; }
+  .form-row-2 { grid-template-columns: 1fr; gap: 0; }
+  .card-row { flex-direction: column; gap: 0; }
+  .radio-card { padding: 14px 12px; }
+  .radio-label { font-size: 12px; }
+  .radio-desc { font-size: 10px; }
+  .form-section { margin-bottom: 20px; }
+  .form-section-title { font-size: 13px; }
+  .btn-primary { padding: 16px; font-size: 11px; }
+  .btn-full { width: 100%; }
+}
 </style>

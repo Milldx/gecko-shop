@@ -50,4 +50,7 @@ const careItems = computed(function() {
 .list li { font-size: 13px; color: var(--gray-dark); padding: 10px 0; border-bottom: 1px solid var(--border); }
 .list li:last-child { border-bottom: none; }
 .empty { font-size: 13px; color: var(--gray-light); padding: 10px 0; }
+@media (max-width: 600px) {
+  .tab-content { padding: 16px 0; }
+}
 </style>

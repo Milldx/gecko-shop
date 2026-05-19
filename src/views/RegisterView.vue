@@ -181,4 +181,11 @@ input:focus { outline: none; border-color: var(--black); }
 
 .auth-link { font-size: 12px; color: var(--gray-mid); text-align: center; }
 .auth-link a { color: var(--black); text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 600px) {
+  .auth-page { padding: 24px 16px 48px; min-height: unset; }
+  .auth-box { padding: 28px 20px; box-shadow: none; border: 1px solid var(--border); }
+  .auth-title { font-size: 24px; margin-bottom: 20px; }
+  .btn-submit { padding: 14px; font-size: 11px; }
+  .field input { padding: 12px 14px; font-size: 13px; }
+}
 </style>

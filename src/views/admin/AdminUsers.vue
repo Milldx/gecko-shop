@@ -155,4 +155,14 @@ function getUserTotal(login) {
 .mrow { display: flex; gap: 16px; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
 .mrow:last-child { border-bottom: none; }
 .mkey { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-mid); padding-top: 1px; }
+
+@media (max-width: 600px) {
+  .users-page { padding: 0 0 40px; }
+  .page-title { font-size: 20px; margin-bottom: 10px; }
+  .users-count { font-size: 11px; }
+  .users-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .users-table { min-width: 500px; font-size: 11px; }
+  .users-table th { font-size: 9px; padding: 8px 8px; }
+  .users-table td { padding: 10px 8px; font-size: 11px; }
+}
 </style>

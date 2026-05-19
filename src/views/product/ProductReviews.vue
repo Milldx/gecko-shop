@@ -247,4 +247,7 @@ function onDelete(reviewId) {
 .btn-cancel-edit { padding: 6px 16px; background: transparent; color: var(--black); border: 1px solid var(--border); font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
 
 .empty { font-size: 13px; color: var(--gray-light); padding-top: 18px; }
+@media (max-width: 600px) {
+  .tab-content { padding: 16px 0; }
+}
 </style>
